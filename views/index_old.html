@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<head>
+<style>
+
+	    font-family: myFirstFont;
+	    src: URL("http://localhost:3000/static/Shobhika-Regular.otf") format("truetype");
+	}
+
+	@font-face{
+		font-family: mySecondFont;
+		src: URL("http://localhost:3000/static/Shobhika-Bold.otf") format("truetype");
+	}
+
+	#myCanvas{
+	    font-family: myFirstFont;
+	}
+
+	#myCanvas2{
+			@font-face {font-family: mySecondFont;
+	}
+
+</style>
+</head>
+<body>
+
+<script>
+window.onload=function(){
+
+	var test_data = new Array("मुंब्रा","र्‍ह","र्‍य","द्ध्र्य","श्री","र्‍ह","जिल्ह्यांना");
+	var canvas1_obj = new Array();
+	var canvas2_obj = new Array();
+
+	create_canvas_and_render_glyph(test_data, canvas1_obj, canvas2_obj)
+	
+	//This function will creat dynamic canvas elements and render glyph into those
+	function create_canvas_and_render_glyph(test_data, canvas1_obj, canvas2_obj){ 
+
+		for (i = 0; i < test_data.length; i++) { 
+			canvas1_obj.push(document.createElement("CANVAS"));
+			canvas2_obj.push(document.createElement("CANVAS"));
+		}
+
+		for (i = 0; i < test_data.length; i++) { 
+			var ctx = canvas1_obj[i].getContext("2d");
+			var ctx2 = canvas2_obj[i].getContext("2d");
+			
+			ctx.font = "30px myFirstFont";
+			ctx2.font = "30px mySecondFont";
+			
+			ctx.fillText(test_data[i], 10, 50);
+			ctx2.fillText(test_data[i], 10, 50);
+			
+			document.body.appendChild(canvas1_obj[i]);
+			document.body.appendChild(canvas2_obj[i]);
+			
+			var br = document.createElement("br");			
+			document.body.appendChild(br);
+
+			console.log(canvas_glyph_compare(canvas1_obj[i], canvas2_obj[i]));		
+		}	
+
+	}
+	
+	//console.log(canvas1_obj);
+
+	//This function will compare two glyph 	
+	function canvas_glyph_compare(canvas1, canvas2) {
+		var ctx_canvas1 = canvas1.getContext("2d");
+		var ctx_canvas2 = canvas2.getContext("2d");
+		var imageData = ctx_canvas1.getImageData(0,0,canvas1.width,canvas1.height).data;
+		var imageData2 = ctx_canvas2.getImageData(0,0,canvas2.width,canvas2.height).data;
+		var same_var = true;
+
+		for(var i = 0;i < imageData.length; i++){
+			if(imageData[i] !== imageData2[i]){
+				console.log(imageData[i]);
+				console.log(imageData2[i]);
+				same_var = false;	
+				break;
+			}
+		}		
+		return same_var;
+	}
+	
+}
+</script>
+</body>
+</html>

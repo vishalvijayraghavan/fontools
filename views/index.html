@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+ <html>
+<head>
+
+<style> 
+@font-face {
+    font-family: myFirstFont;
+    src: URL("./LiberationMono-Regular.ttf") format("truetype");
+}
+
+@font-face{
+	font-family: mySecondFont;
+	src: URL("./NotoSansLisu-Regular.ttf") format("truetype");
+}
+
+
+#myCanvas{
+    font-family: myFirstFont;
+}
+
+#myCanvas2{
+	font-family: mySecondFont;
+}
+
+</style>
+
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<canvas id="myCanvas2" width="300" height="150" >
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var c2 = document.getElementById('myCanvas2');
+
+var ctx = c.getContext("2d");
+ctx.font = "30px myFirstFont";
+ctx.fillText("Hello World", 10, 50);
+
+var ctx2 = c2.getContext("2d");
+ctx2.font = "30px mySecondFont";
+ctx2.fillText("Hello World", 10, 50);
+
+</script>
+
+</body>
+</html>
+
